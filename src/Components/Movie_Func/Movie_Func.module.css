@@ -1,0 +1,7 @@
+.mf_choose ul {
+  list-style: none;
+}
+
+.mf_choose {
+  user-select: none;
+}

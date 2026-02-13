@@ -1,0 +1,5 @@
+.m_container {
+  display: flex;
+  justify-content: center;
+  column-gap: 30px;
+}

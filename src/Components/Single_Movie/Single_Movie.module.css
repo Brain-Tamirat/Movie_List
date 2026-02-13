@@ -1,0 +1,45 @@
+.sm_container {
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sm_container:first-of-type:hover {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.sm_container:hover {
+  background-color: #2a3335;
+}
+.sm_container {
+  border-bottom: #2a3335 solid 2px;
+}
+
+.ml_m_pic {
+  height: 70px;
+  width: 40px;
+  object-fit: cover;
+}
+
+.ml_m_content {
+  margin-left: 20px;
+}
+
+.ml_m_title {
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+.ml_m_date {
+  font-size: 1.7rem;
+}
+
+.mf_wl_m_m_d_list {
+  display: flex;
+  justify-content: space-between;
+  width: 270px;
+  align-items: center;
+  font-size: 1.7rem;
+}

@@ -1,0 +1,37 @@
+.l_container {
+  position: relative;
+  top: 5%;
+}
+
+.l_container :first-child {
+  margin: 0 auto;
+  display: block;
+  width: 30px;
+  height: 30px;
+  transform-origin: 50% 50%;
+  animation: loading infinite 500ms ease-in-out;
+}
+
+.l_container > p {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bolder;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(45deg);
+  }
+  50% {
+    transform: rotateZ(90deg);
+  }
+  75% {
+    transform: rotateZ(135deg);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
+}

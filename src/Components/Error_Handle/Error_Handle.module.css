@@ -1,0 +1,10 @@
+.e_container {
+  position: relative;
+  top: 5%;
+}
+
+.e_container > p {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bolder;
+}

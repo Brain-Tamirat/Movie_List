@@ -1,0 +1,19 @@
+.mf_d_m_stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+  margin-bottom: 25px;
+}
+.mf_d_m_stars li > * {
+  cursor: pointer;
+}
+.mf_d_m_stars li:last-of-type {
+  font-weight: bold;
+  margin-left: 5px;
+}
+.given_star {
+  display: block;
+  margin: -10px auto 15px;
+  text-align: center;
+}

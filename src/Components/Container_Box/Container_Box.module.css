@@ -1,0 +1,30 @@
+.box_container {
+  background-color: #25292d;
+  min-height: 800px;
+  width: 500px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.box_collapse {
+  position: absolute;
+  background-color: #1c2021;
+  font-size: 5rem;
+  width: 30px;
+  height: 30px;
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 10px;
+  top: 10px;
+  border-radius: 50%;
+  color: #fdffff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.box_plus {
+  font-size: 3rem;
+  padding-bottom: 3px !important;
+}

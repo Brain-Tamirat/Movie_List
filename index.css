@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 65%;
+  font-family: Calibri, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #1c2022;
+  color: #d8dfe2;
+}
