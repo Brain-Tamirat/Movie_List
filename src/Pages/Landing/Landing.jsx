@@ -12,47 +12,11 @@ import Movie_Func from "../../Components/Movie_Func/Movie_Func";
 
 const API_KEY = "c6381041";
 
-// const movies = [
-//   {
-//     Poster: "Pictures/inception.jpg",
-//     Title: "inception",
-//     Year: 2010,
-//     imdbID: 1,
-//   },
-//   {
-//     Poster: "Pictures/the matrix.jpg",
-//     Title: "the matrix",
-//     Year: 1999,
-//     imdbID: 2,
-//   },
-//   {
-//     Poster: "Pictures/parasite.webp",
-//     Title: "parasite",
-//     Year: 2019,
-//     imdbID: 3,
-//   },
-// ];
-
-const watched_movies = [
-  {
-    pic: "Pictures/inception.jpg",
-    title: "inception",
-    star: 8.8,
-    your_star: 10,
-    min: 148,
-  },
-  {
-    pic: "Pictures/back to the future.jpg",
-    title: "back to the future",
-    star: 8.5,
-    your_star: 9,
-    min: 116,
-  },
-];
-
 export default function Landing() {
   const [searched_movies, setSearchedMovies] = useState([]);
+  const [seen_movies, setSeenMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [movieDetailLoading, setMovieDetailLoading] = useState(false);
   const [isError, setIsError] = useState([false, ""]);
   const [search, setSearch] = useState("");
   const [clicked_movie, setClickedMovie] = useState(0);
@@ -79,8 +43,9 @@ export default function Landing() {
 
         setSearchedMovies(searched_movies.Search);
       } catch (e) {
-        // console.log(e);
+        console.log(e);
         setIsError(() => [true, e.message]);
+        setSearchedMovies([]);
       } finally {
         setIsLoading(false);
       }
@@ -90,12 +55,32 @@ export default function Landing() {
   }, [search]);
 
   const onSelectingMovie = async (id) => {
+    setMovieDetailLoading(true);
     const res = await fetch(
       `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`,
     );
     const data = await res.json();
-    console.log(data);
     setClickedMovie(data);
+    setMovieDetailLoading(false);
+  };
+
+  const onAddToWatchedList = (id, pic, title, star, your_star, min) => {
+    setSeenMovies((prev) => {
+      if (prev.length != 0) {
+        return [...prev, { id, pic, title, star, your_star, min }];
+      } else {
+        return [{ id, pic, title, star, your_star, min }];
+      }
+    });
+  };
+
+  const onRemoveFromWatchedList = (id) => {
+    setSeenMovies((prev) => {
+      return prev.filter((val) => {
+        console.log("val" + val.id, "id" + id);
+        return val.id != id;
+      });
+    });
   };
 
   return (
@@ -120,15 +105,27 @@ export default function Landing() {
         </Container_Box>
         <Container_Box>
           <Movie_Func>
-            {clicked_movie ? (
+            {movieDetailLoading ? (
+              <Is_Loading bit_down={{ top: `30px` }} />
+            ) : clicked_movie ? (
               <Detail_View
+                key={clicked_movie.imdbID}
+                id={clicked_movie.imdbID}
                 clicked_movie={clicked_movie}
+                seen_movies={seen_movies.map((movie) => [
+                  movie.id,
+                  movie.your_star,
+                ])}
                 goBack={() => {
                   setClickedMovie(0);
                 }}
+                addToWatchedList={onAddToWatchedList}
               />
             ) : (
-              <Your_History watched_movies={watched_movies} />
+              <Your_History
+                watched_movies={seen_movies}
+                removeFromWatchedList={onRemoveFromWatchedList}
+              />
             )}
           </Movie_Func>
         </Container_Box>

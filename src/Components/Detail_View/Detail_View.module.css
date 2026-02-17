@@ -60,6 +60,14 @@
   border-radius: 15px;
 }
 
+.mf_d_m_addmsg {
+  margin: 0px auto 5px;
+  text-align: center;
+  color: rgb(211, 211, 211);
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
 .mf_d_m_msg {
   width: 200px;
   border-radius: 20px;

@@ -2,16 +2,33 @@ import React from "react";
 import c from "./Your_History.module.css";
 import Single_Movie from "../Single_Movie/Single_Movie";
 
-export default function Your_History({ watched_movies }) {
-  const avg_star = watched_movies.reduce((pv, cv, _, arr) => {
-    return ((pv.star + cv.star) / arr.length).toFixed(2);
-  });
-  const avg_your_star = watched_movies.reduce((pv, cv, _, arr) => {
-    return ((pv.your_star + cv.your_star) / arr.length).toFixed(1);
-  });
-  const avg_min = watched_movies.reduce((pv, cv, _, arr) => {
-    return ((pv.min + cv.min) / arr.length).toFixed(0);
-  });
+export default function Your_History({
+  watched_movies,
+  removeFromWatchedList,
+}) {
+  let avg_star = 0;
+  let avg_your_star = 0;
+  let avg_min = 0;
+
+  if (watched_movies.length == 1) {
+    avg_star = watched_movies[0].star;
+    avg_your_star = watched_movies[0].your_star;
+    avg_min = watched_movies[0].min;
+  }
+
+  if (watched_movies.length > 1) {
+    avg_star = (
+      watched_movies.reduce((pv, cv) => pv + cv.star, 0) / watched_movies.length
+    ).toFixed(2);
+    avg_your_star = (
+      watched_movies.reduce((pv, cv) => pv + cv.your_star, 0) /
+      watched_movies.length
+    ).toFixed(1);
+    avg_min = (
+      watched_movies.reduce((pv, cv) => pv + cv.min, 0) / watched_movies.length
+    ).toFixed(0);
+  }
+
   return (
     <div>
       <div className={c.mf_watch_list}>
@@ -28,12 +45,13 @@ export default function Your_History({ watched_movies }) {
           return (
             <Single_Movie
               key={index + 1}
-              id={"watched" + (index + 1)}
+              id={val.id}
               pic={val.pic}
               title={val.title}
               star={val.star}
               your_star={val.your_star}
               min={val.min}
+              remove={removeFromWatchedList}
             />
           );
         })}

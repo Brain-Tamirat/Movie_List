@@ -1,7 +1,6 @@
 .sm_container {
   display: flex;
   padding: 20px;
-  cursor: pointer;
   user-select: none;
 }
 
@@ -37,9 +36,18 @@
 }
 
 .mf_wl_m_m_d_list {
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   width: 270px;
   align-items: center;
   font-size: 1.7rem;
+}
+
+.ml_m_content > span {
+  display: inline-flex;
+  margin-left: 90px;
+  border-radius: 50%;
+  padding: 2.5px;
+  font-size: 1.7rem;
+  cursor: pointer;
 }
