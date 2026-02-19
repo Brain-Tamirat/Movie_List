@@ -22,6 +22,7 @@ export default function Landing() {
   const [clicked_movie, setClickedMovie] = useState(0);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function getMovies() {
       try {
         setIsLoading(true);
@@ -33,6 +34,7 @@ export default function Landing() {
 
         const resource = await fetch(
           `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`,
+          { signal: controller.signal },
         );
 
         const searched_movies = await resource.json();
@@ -42,17 +44,35 @@ export default function Landing() {
         }
 
         setSearchedMovies(searched_movies.Search);
+        setIsError([false, ""]);
       } catch (e) {
-        console.log(e);
-        setIsError(() => [true, e.message]);
-        setSearchedMovies([]);
+        if (e.name !== "AbortError") {
+          console.log(e);
+          setIsError(() => [true, e.message]);
+          setSearchedMovies([]);
+        }
       } finally {
         setIsLoading(false);
       }
     }
+
+    setClickedMovie(0);
     getMovies();
-    return;
+
+    return function () {
+      controller.abort();
+    };
   }, [search]);
+
+  useEffect(() => {
+    if (!clicked_movie.Title) return;
+
+    document.title = `Movies: ${clicked_movie.Title}`;
+
+    return function () {
+      document.title = "Movies";
+    };
+  }, [clicked_movie]);
 
   const onSelectingMovie = async (id) => {
     setMovieDetailLoading(true);

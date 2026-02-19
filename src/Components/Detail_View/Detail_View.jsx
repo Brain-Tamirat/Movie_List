@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import c from "./Detail_View.module.css";
 import Rate_Star from "../Rate_Star/Rate_Star";
 import { FaLongArrowAltLeft } from "react-icons/fa";
@@ -17,6 +17,20 @@ export default function Detail_View({
     seen_movie_list ? seen_movie_list[1] : 0,
     Boolean(seen_movie_list),
   ]);
+
+  useEffect(() => {
+    const escape = (e) => {
+      if (e.code === "Escape") {
+        goBack();
+      }
+    };
+
+    document.addEventListener("keydown", escape);
+
+    return function () {
+      document.removeEventListener("keydown", escape);
+    };
+  }, [goBack]);
 
   function handleWatchHistory() {
     setCatchRating((prev) => [prev[0], true]);
