@@ -10,8 +10,6 @@ import Detail_View from "../../Components/Detail_View/Detail_View";
 import Your_History from "../../Components/Your_History/Your_History";
 import Movie_Func from "../../Components/Movie_Func/Movie_Func";
 
-const API_KEY = "c6381041";
-
 export default function Landing() {
   const [searched_movies, setSearchedMovies] = useState([]);
   const [seen_movies, setSeenMovies] = useState([]);
@@ -20,6 +18,7 @@ export default function Landing() {
   const [isError, setIsError] = useState([false, ""]);
   const [search, setSearch] = useState("");
   const [clicked_movie, setClickedMovie] = useState(0);
+  const key = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -33,7 +32,7 @@ export default function Landing() {
         }
 
         const resource = await fetch(
-          `http://www.omdbapi.com/?apikey=${API_KEY}&s=${search}`,
+          `https://www.omdbapi.com/?apikey=${key}&s=${search}`,
           { signal: controller.signal },
         );
 
@@ -76,9 +75,7 @@ export default function Landing() {
 
   const onSelectingMovie = async (id) => {
     setMovieDetailLoading(true);
-    const res = await fetch(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`,
-    );
+    const res = await fetch(`https://www.omdbapi.com/?apikey=${key}&i=${id}`);
     const data = await res.json();
     setClickedMovie(data);
     setMovieDetailLoading(false);
